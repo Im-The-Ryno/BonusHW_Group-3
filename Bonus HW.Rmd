@@ -73,3 +73,19 @@ The model results are as follows:
 ```{r, echo=FALSE}
 summary(initial_model)
 ```
+
+
+#Analysis
+As seen in the results, this model is close to centered and has an `R^2` value of `0.8268`. This shows that this model provides a good understanding to what is occurring to impact the quater mile time. To understand if this model could be improved the carb coefficient will be added to see if this improves the results. We will also remove the am coefficient as it has a high p-value in the initial model. These new functions are as follows:
+```{r}
+carb_model <- lm(qsec ~ hp + vs + am + wt + carb, data = mtcars)
+am_model <- lm(qsec ~ hp + vs + wt, data = mtcars)
+```
+
+Next we will us an AIC to compare the initial model to the new models.
+```{r, echo=FALSE}
+AIC(carb_model,initial_model)
+AIC(am_model,initial_model)
+```
+
+From the AIC test we can see that the initial model is the best fit for the data because it balences fit with parameter number. While the carb model has a higher `R^2` it uses too many parameters. The `am_model` has the opposite problem, having too low and `R^2` value. Therefore the model dependent on `hp`, `vs`, `am`, and `wt` is most ideal.
