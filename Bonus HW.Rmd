@@ -89,3 +89,21 @@ AIC(am_model,initial_model)
 ```
 
 From the AIC test we can see that the initial model is the best fit for the data because it balences fit with parameter number. While the carb model has a higher `R^2` it uses too many parameters. The `am_model` has the opposite problem, having too low and `R^2` value. Therefore the model dependent on `hp`, `vs`, `am`, and `wt` is most ideal.
+
+Next we will make QQ-plots of the variables used in the initial model to ensure normality, and to ensure that the model fits the data.
+```{r}
+# QQ plot of the weights of the cars in mtcars dataset
+qqnorm(mtcars$wt)
+qqline(mtcars$wt, col = "red",)
+# QQ plot of the horsepower of the cars in the mtcars dataset.
+qqnorm(mtcars$hp)
+qqline(mtcars$hp, col = "red",)
+# QQ plot of transmission type of the cars in the mtcars dataset
+qqnorm(mtcars$am)
+qqline(mtcars$am, col = "red",)
+```
+Because the distributions of the variables are normal as shown in the qqplots, the chosen model fits the dataset.
+
+Conclusion:
+We used the initial model because of its low amount of parameters, and low AIC value being 82.83573. This was the most reliable model we explored, and it produced the following results. The initial model chosen has shown that in the mtcars dataset, the cars' horsepower, weight, and engine type are all significant factors that affect the quarter mile time of cars in the dataset. This is shown in the fact that the p-value<0.05 for all of the variables listed above. The model also showed that, while transmission type did have a low p-value, it was not low enough to consider it a significant factor.
+
