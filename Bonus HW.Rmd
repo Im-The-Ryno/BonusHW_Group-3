@@ -49,22 +49,27 @@ plot_mtcars <- function(var) {
 Using that function all 10 plots were created. Examining the plots the quater mile time seemed related too:
 
 ``` {r, echo=FALSE}
-plot_mtcars("cyl")
-plot_mtcars("disp")
 plot_mtcars("hp")
 plot_mtcars("vs")
 plot_mtcars("am")
 plot_mtcars("wt")
 ```
 
-From these relationships multicollinearity concerns arise from number of cylinders to horsepower and displacement to horsepower. This relationship is shown by plotting the two together.
+From these relationships multicollinearity concerns arise from the relationship between weight and horsepower. This relationship is shown by plotting the two together.
 ```{r, echo=FALSE}
-plot(mtcars$cyl, mtcars$hp,
-     xlab = "Cylinders",
+plot(mtcars$wt, mtcars$hp,
+     xlab = "Weight",
      ylab = "Horsepower",
-     main = "Horsepower vs Cylinders",)
-plot(mtcars$disp, mtcars$hp,
-     xlab = "Displacement",
-     ylab = "Horsepower",
-     main = "Displacement vs Cylinders",)
+     main = "Horsepower vs Weight",)
+
+```
+
+Having determined the model varibles an inital model was created through the `lm()` function in r.
+```{r}
+initial_model <- lm(qsec ~ hp + vs + am + wt, data = mtcars)
+```
+
+The model results are as follows:
+```{r, echo=FALSE}
+summary(initial_model)
 ```
