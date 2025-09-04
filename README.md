@@ -1,2 +1,70 @@
-# BonusHW_Martin
-R programming, bonus homework
+---
+title: "8-21-25 Notes"
+output: html_document
+date: "2025-08-21"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+data(mtcars)
+```
+The built-in R dataset, mtcars, has 11 variables:
+
+- mpg (miles per gallon)  
+- cyl (number of cylinders)  
+- disp (displacement)  
+- hp (horsepower)  
+- drat (rear axle ratio)  
+- wt (weight)  
+- qsec (quarter mile time)  
+- vs (engine type)  
+- am (transmission type)  
+- gear (number of forward gears)  
+- carb (number of carburetors)  
+    
+The purpose of this project is to understand what impacts the quater mile time of cars in `mtcars`.
+
+Below is a summary of the initial data set:
+```{r,echo=FALSE}
+data(mtcars)
+summary(mtcars)
+```
+
+The first step of this process is to create a scatter plot for all other variables in relation to `qsec`. The following function was created to more efficiently create the graphs.
+```{r}
+#Plot qsec vs any variable
+plot_mtcars <- function(var) {
+  x <- mtcars[[var]]
+  y <- mtcars$qsec
+  
+  plot(x, y,
+       xlab = var,
+       ylab = "Quarter Mile Time (qsec)",
+       main = paste("Quarter Mile Time vs", var),)
+}
+```
+
+Using that function all 10 plots were created. Examining the plots the quater mile time seemed related too:
+
+``` {r, echo=FALSE}
+plot_mtcars("cyl")
+plot_mtcars("disp")
+plot_mtcars("hp")
+plot_mtcars("vs")
+plot_mtcars("am")
+plot_mtcars("wt")
+```
+
+From these relationships multicollinearity concerns arise from number of cylinders to horsepower and displacement to horsepower. This relationship is shown by plotting the two together.
+```{r, echo=FALSE}
+plot(mtcars$cyl, mtcars$hp,
+     xlab = "Cylinders",
+     ylab = "Horsepower",
+     main = "Horsepower vs Cylinders",)
+plot(mtcars$disp, mtcars$hp,
+     xlab = "Displacement",
+     ylab = "Horsepower",
+     main = "Displacement vs Cylinders",)
+```
